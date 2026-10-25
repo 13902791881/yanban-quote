@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>欣派岩板 · 定制报价</title>
+<style>
+  :root{
+    --bg:#14110d;
+    --bg2:#1c1813;
+    --card:#211c15;
+    --line:rgba(201,163,106,.22);
+    --line-strong:rgba(201,163,106,.55);
+    --gold:#c9a36a;
+    --gold-hi:#e8cf9f;
+    --ink:#efe7d8;
+    --ink-dim:#a99f8c;
+    --ink-faint:#6f675a;
+    --green:#8fbf9f;
+    --radius:14px;
+    --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+    --sans:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{font-size:16px}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--bg);
+    min-height:100vh;
+    padding-bottom:calc(120px + env(safe-area-inset-bottom));
+  }
+  /* 石材纹理背景 */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-2;
+    background:
+      radial-gradient(120% 60% at 80% -10%,rgba(201,163,106,.10),transparent 60%),
+      radial-gradient(90% 50% at 10% 110%,rgba(201,163,106,.06),transparent 55%),
+      linear-gradient(180deg,#171410,#100e0b);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:-1;opacity:.05;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:0 18px}
+
+  /* ===== 头部 ===== */
+  header{padding:34px 0 8px;text-align:center;position:relative}
+  .brand-mark{
+    font-family:var(--serif);font-size:.72rem;letter-spacing:.55em;color:var(--gold);
+    text-transform:uppercase;margin-bottom:12px;text-indent:.55em;
+  }
+  h1{
+    font-family:var(--serif);font-weight:700;font-size:1.9rem;letter-spacing:.12em;
+    background:linear-gradient(160deg,var(--gold-hi) 20%,var(--gold) 55%,#8f6f3e 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sub{margin-top:10px;font-size:.78rem;color:var(--ink-dim);letter-spacing:.2em}
+  .promo-line{
+    margin:16px auto 0;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center;
+  }
+  .promo-tag{
+    font-size:.72rem;color:var(--gold-hi);border:1px solid var(--line);
+    padding:5px 12px;border-radius:99px;letter-spacing:.08em;
+    background:rgba(201,163,106,.07);
+  }
+  .rule{
+    width:64px;height:1px;margin:22px auto 0;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+
+  /* ===== 模式切换 ===== */
+  .mode-tabs{
+    display:grid;grid-template-columns:1fr 1fr;margin-top:26px;
+    border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;
+    background:var(--card);
+  }
+  .mode-tab{
+    padding:14px 0 12px;text-align:center;cursor:pointer;transition:all .25s;
+    font-family:var(--serif);letter-spacing:.25em;text-indent:.25em;
+    font-size:.95rem;color:var(--ink-dim);
+  }
+  .mode-tab small{
+    display:block;margin-top:5px;font-family:var(--sans);font-size:.6rem;
+    letter-spacing:.18em;text-indent:.18em;color:var(--ink-faint);
+  }
+  .mode-tab.on{
+    background:linear-gradient(150deg,var(--gold-hi),var(--gold) 60%,#a8834e);
+    color:#14110d;font-weight:700;
+  }
+  .mode-tab.on small{color:rgba(20,17,13,.6)}
+  .mode-tab:active{transform:scale(.98)}
+
+  /* ===== 区块 ===== */
+  section{margin-top:30px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+  .sec-no{
+    font-family:var(--serif);font-size:.8rem;color:var(--gold);letter-spacing:.15em;
+  }
+  .sec-title{font-family:var(--serif);font-size:1.05rem;letter-spacing:.25em;font-weight:600}
+  .sec-hint{margin-left:auto;font-size:.7rem;color:var(--ink-faint);letter-spacing:.05em}
+
+  /* ===== 类型卡片 ===== */
+  .type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .type-card{
+    position:relative;border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);padding:15px 14px 13px;cursor:pointer;
+    transition:border-color .25s,transform .15s,background .25s;
+    overflow:hidden;
+  }
+  .type-card:active{transform:scale(.97)}
+  .type-card .t-name{font-family:var(--serif);font-size:.98rem;letter-spacing:.08em}
+  .type-card .t-sub{margin-top:5px;font-size:.68rem;color:var(--ink-faint);letter-spacing:.05em}
+  .type-card .t-price{margin-top:9px;font-size:.75rem;color:var(--ink-dim)}
+  .type-card .t-price b{color:var(--gold);font-weight:600;font-family:var(--serif)}
+  .type-card.on{
+    border-color:var(--line-strong);
+    background:linear-gradient(150deg,rgba(201,163,106,.16),rgba(201,163,106,.05));
+  }
+  .type-card.on::after{
+    content:"";position:absolute;top:0;right:0;border-style:solid;
+    border-width:0 26px 26px 0;border-color:transparent var(--gold) transparent transparent;
+  }
+  .type-card.on::before{
+    content:"✓";position:absolute;top:1px;right:3px;z-index:1;
+    font-size:.62rem;color:#14110d;font-weight:700;
+  }
+  .type-card .off-tag{
+    display:inline-block;margin-top:8px;font-size:.66rem;color:var(--green);
+    border:1px solid rgba(143,191,159,.4);padding:2px 8px;border-radius:99px;
+    background:rgba(143,191,159,.08);letter-spacing:.05em;
+  }
+
+  /* ===== 尺寸滑杆 ===== */
+  .size-panel{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);padding:20px 18px 16px;
+  }
+  .size-top{display:flex;align-items:baseline;justify-content:space-between}
+  .size-num{display:flex;align-items:baseline;gap:4px}
+  .size-num b{
+    font-family:var(--serif);font-size:2.6rem;font-weight:700;color:var(--gold-hi);
+    font-variant-numeric:tabular-nums;line-height:1;
+  }
+  .size-num span{font-size:.85rem;color:var(--ink-dim)}
+  .range-badge{
+    font-family:var(--serif);font-size:.8rem;color:var(--gold);
+    border:1px solid var(--line);padding:5px 12px;border-radius:8px;
+    background:rgba(201,163,106,.08);letter-spacing:.05em;white-space:nowrap;
+  }
+  .slider-row{display:flex;align-items:center;gap:12px;margin-top:18px}
+  .step-btn{
+    width:34px;height:34px;flex:none;border-radius:50%;
+    border:1px solid var(--line);background:transparent;color:var(--gold);
+    font-size:1.1rem;cursor:pointer;transition:background .2s;line-height:1;
+  }
+  .step-btn:active{background:rgba(201,163,106,.15)}
+  input[type=range]{
+    flex:1;appearance:none;-webkit-appearance:none;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,var(--gold) var(--pct,25%),#3a332a var(--pct,25%));
+    outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,var(--gold-hi),var(--gold) 70%);
+    border:2px solid #14110d;box-shadow:0 0 0 1px var(--line-strong),0 2px 8px rgba(0,0,0,.5);
+    cursor:pointer;
+  }
+  .size-scale{display:flex;justify-content:space-between;margin-top:8px;padding:0 46px;
+    font-size:.62rem;color:var(--ink-faint)}
+  .base-price-line{
+    margin-top:14px;padding-top:13px;border-top:1px dashed rgba(201,163,106,.18);
+    display:flex;justify-content:space-between;align-items:center;font-size:.78rem;
+    color:var(--ink-dim);
+  }
+  .base-price-line b{font-family:var(--serif);color:var(--gold-hi);font-size:1.05rem;font-weight:600}
+
+  /* ===== 批量数量 ===== */
+  .qty-row{
+    margin-top:14px;padding-top:13px;border-top:1px dashed rgba(201,163,106,.18);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .qty-lb{font-size:.78rem;color:var(--ink-dim);letter-spacing:.05em}
+  .qty-ctl{display:flex;align-items:center;gap:10px}
+  .qty-input{
+    width:4.2em;padding:5px 6px;text-align:center;
+    font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--gold-hi);
+    font-variant-numeric:tabular-nums;line-height:1.2;
+    background:rgba(201,163,106,.07);border:1px solid var(--line);
+    border-radius:9px;outline:none;transition:border-color .2s,background .2s;
+    -moz-appearance:textfield;
+  }
+  .qty-input:focus{border-color:var(--line-strong);background:rgba(201,163,106,.13)}
+  .qty-input::-webkit-outer-spin-button,
+  .qty-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .qty-unit{font-size:.72rem;color:var(--ink-dim)}
+  .qty-quick{display:flex;gap:8px;margin-top:11px}
+  .qty-quick span{
+    flex:1;text-align:center;font-size:.7rem;color:var(--ink-dim);
+    border:1px solid var(--line);border-radius:8px;padding:6px 0;cursor:pointer;
+    transition:all .2s;letter-spacing:.03em;
+  }
+  .qty-quick span:active{transform:scale(.93)}
+  .qty-quick span.on{
+    color:#14110d;font-weight:700;border-color:transparent;
+    background:linear-gradient(150deg,var(--gold-hi),var(--gold));
+  }
+
+  /* ===== 选项 chips ===== */
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{
+    border:1px solid var(--line);border-radius:10px;background:var(--card);
+    padding:10px 14px;font-size:.8rem;color:var(--ink-dim);cursor:pointer;
+    display:flex;align-items:center;gap:7px;transition:all .2s;letter-spacing:.03em;
+  }
+  .chip:active{transform:scale(.95)}
+  .chip .d{font-family:var(--serif);font-size:.78rem}
+  .chip .d.plus{color:var(--gold)}
+  .chip .d.minus{color:var(--green)}
+  .chip.on{
+    border-color:var(--line-strong);color:var(--ink);
+    background:linear-gradient(150deg,rgba(201,163,106,.18),rgba(201,163,106,.06));
+    box-shadow:0 2px 10px rgba(0,0,0,.25);
+  }
+  .empty-note{font-size:.75rem;color:var(--ink-faint);padding:6px 2px;letter-spacing:.05em}
+
+  /* ===== 明细 ===== */
+  .bill{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:linear-gradient(170deg,#241e16,#1a1610);overflow:hidden;
+  }
+  .bill-head{
+    padding:13px 16px;font-family:var(--serif);font-size:.82rem;letter-spacing:.3em;
+    color:var(--gold);border-bottom:1px solid rgba(201,163,106,.15);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .bill-head span{font-size:.65rem;letter-spacing:.1em;color:var(--ink-faint);font-family:var(--sans)}
+  .bill-rows{padding:6px 16px}
+  .bill-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:9px 0;font-size:.8rem;border-bottom:1px dashed rgba(201,163,106,.10);
+  }
+  .bill-row:last-child{border-bottom:none}
+  .bill-row .lb{color:var(--ink-dim);letter-spacing:.03em}
+  .bill-row .amt{font-family:var(--serif);font-variant-numeric:tabular-nums;color:var(--ink)}
+  .bill-row .amt.neg{color:var(--green)}
+  .bill-row.strong{padding-top:11px}
+  .bill-row.strong .lb{color:var(--ink);font-weight:600}
+  .bill-row.strong .amt{color:var(--gold-hi);font-weight:600}
+  .bill-total{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:15px 16px 17px;background:rgba(201,163,106,.08);
+    border-top:1px solid rgba(201,163,106,.2);
+  }
+  .bill-total .lb{font-family:var(--serif);letter-spacing:.35em;font-size:.85rem;color:var(--gold)}
+  .bill-total .val{
+    font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--gold-hi);
+    font-variant-numeric:tabular-nums;line-height:1;
+  }
+  .bill-total .val i{font-style:normal;font-size:.85rem;margin-right:3px;color:var(--gold)}
+
+  /* ===== 速查表 ===== */
+  details.lookup{margin-top:30px;border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);overflow:hidden}
+  details.lookup summary{
+    list-style:none;cursor:pointer;padding:14px 16px;font-family:var(--serif);
+    font-size:.85rem;letter-spacing:.25em;color:var(--gold);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  details.lookup summary::-webkit-details-marker{display:none}
+  details.lookup summary::after{content:"＋";font-size:.9rem;color:var(--ink-faint);transition:transform .25s}
+  details.lookup[open] summary::after{transform:rotate(45deg)}
+  .ltable{overflow-x:auto;border-top:1px solid rgba(201,163,106,.15)}
+  .ltable table{width:100%;border-collapse:collapse;font-size:.68rem;min-width:460px}
+  .ltable th,.ltable td{padding:7px 6px;text-align:center;border-bottom:1px solid rgba(201,163,106,.08);white-space:nowrap}
+  .ltable th{color:var(--gold);font-weight:600;background:rgba(201,163,106,.06);letter-spacing:.03em}
+  .ltable td{color:var(--ink-dim);font-variant-numeric:tabular-nums}
+  .ltable td:first-child{color:var(--ink-faint)}
+  .lookup-note{padding:10px 16px 14px;font-size:.66rem;color:var(--ink-faint);line-height:1.9}
+
+  footer{text-align:center;margin-top:36px;font-size:.65rem;color:var(--ink-faint);letter-spacing:.25em}
+
+  /* ===== 底部固定栏 ===== */
+  .dock{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    background:rgba(20,17,13,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-top:1px solid var(--line-strong);
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+  }
+  .dock-in{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:14px}
+  .dock-total{flex:1;min-width:0}
+  .dock-total .cap{font-size:.62rem;color:var(--ink-faint);letter-spacing:.2em}
+  .dock-total .num{
+    font-family:var(--serif);font-size:1.7rem;font-weight:700;color:var(--gold-hi);
+    line-height:1.1;font-variant-numeric:tabular-nums;
+  }
+  .dock-total .num i{font-style:normal;font-size:.8rem;color:var(--gold);margin-right:2px}
+  .btn-copy{
+    flex:none;border:none;cursor:pointer;border-radius:12px;padding:14px 26px;
+    font-family:var(--serif);font-size:.92rem;letter-spacing:.25em;text-indent:.25em;
+    color:#14110d;font-weight:700;
+    background:linear-gradient(150deg,var(--gold-hi),var(--gold) 60%,#a8834e);
+    box-shadow:0 4px 16px rgba(201,163,106,.3);
+    transition:transform .15s,box-shadow .2s;
+  }
+  .btn-copy:active{transform:scale(.95);box-shadow:0 2px 8px rgba(201,163,106,.2)}
+
+  /* toast */
+  .toast{
+    position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(20px);
+    background:#2b251c;border:1px solid var(--line-strong);color:var(--gold-hi);
+    padding:11px 22px;border-radius:99px;font-size:.8rem;letter-spacing:.1em;
+    opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.2,.9,.3,1.2);z-index:99;
+    box-shadow:0 8px 30px rgba(0,0,0,.5);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  section,header{animation:fadeUp .55s cubic-bezier(.2,.7,.3,1) both}
+  section:nth-of-type(1){animation-delay:.05s}
+  section:nth-of-type(2){animation-delay:.12s}
+  section:nth-of-type(3){animation-delay:.19s}
+  section:nth-of-type(4){animation-delay:.26s}
+  section:nth-of-type(5){animation-delay:.33s}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="brand-mark">XINPAI STONE</div>
+    <h1>欣派岩板 · 定制报价</h1>
+    <div class="sub">2025 报价表 · 即选即算</div>
+    <div class="promo-line">
+      <span class="promo-tag">批量价 · 台下盆每件 −¥80</span>
+      <span class="promo-tag">批量价 · 其他每件 −¥100</span>
+    </div>
+    <div class="rule"></div>
+  </header>
+
+  <!-- 模式切换 -->
+  <div class="mode-tabs">
+    <div class="mode-tab on" data-mode="custom">定制报价<small>SINGLE · 单件起订</small></div>
+    <div class="mode-tab" data-mode="batch">批量报价<small>BATCH · 工程多件</small></div>
+  </div>
+
+  <!-- 01 类型 -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-no">壹 /</span><span class="sec-title">定制类型</span>
+      <span class="sec-hint">单选</span>
+    </div>
+    <div class="type-grid" id="typeGrid"></div>
+  </section>
+
+  <!-- 02 尺寸 -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-no">贰 /</span><span class="sec-title">台面长度</span>
+      <span class="sec-hint">51 – 200 cm</span>
+    </div>
+    <div class="size-panel">
+      <div class="size-top">
+        <div class="size-num"><b id="lenNum">90</b><span>cm</span></div>
+        <div class="range-badge" id="rangeBadge">81-90cm 档</div>
+      </div>
+      <div class="slider-row">
+        <button class="step-btn" id="btnMinus" aria-label="减">−</button>
+        <input type="range" id="lenSlider" min="51" max="200" value="90" step="1">
+        <button class="step-btn" id="btnPlus" aria-label="加">＋</button>
+      </div>
+      <div class="size-scale"><span>51</span><span>100</span><span>150</span><span>200</span></div>
+      <div class="base-price-line">
+        <span>该档位基础价</span><b id="basePrice">¥450</b>
+      </div>
+      <div id="qtyArea" style="display:none">
+        <div class="qty-row">
+          <span class="qty-lb">批量数量</span>
+          <div class="qty-ctl">
+            <button class="step-btn" id="qtyMinus" aria-label="减">−</button>
+            <input class="qty-input" id="qtyNum" type="number" inputmode="numeric"
+                   min="1" max="9999" step="1" value="10" aria-label="批量数量">
+            <span class="qty-unit">件</span>
+            <button class="step-btn" id="qtyPlus" aria-label="加">＋</button>
+          </div>
+        </div>
+        <div class="qty-quick" id="qtyQuick">
+          <span data-q="10">10件</span><span data-q="20">20件</span><span data-q="50">50件</span><span data-q="100">100件</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 附加项 -->
+  <section id="addonSec">
+    <div class="sec-head">
+      <span class="sec-no">叁 /</span><span class="sec-title">附加项目</span>
+      <span class="sec-hint">可多选</span>
+    </div>
+    <div class="chips" id="addonChips"></div>
+  </section>
+
+  <!-- 04 通用选项 -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-no">肆 /</span><span class="sec-title">通用选项</span>
+      <span class="sec-hint">按需选择</span>
+    </div>
+    <div class="chips" id="commonChips"></div>
+  </section>
+
+  <!-- 05 明细 -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-no">伍 /</span><span class="sec-title">报价明细</span>
+    </div>
+    <div class="bill">
+      <div class="bill-head">明 细<span id="billMeta"></span></div>
+      <div class="bill-rows" id="billRows"></div>
+      <div class="bill-total">
+        <span class="lb">合 计</span>
+        <span class="val"><i>¥</i><span id="totalNum">0</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 速查表 -->
+  <details class="lookup">
+    <summary>全量价格速查表</summary>
+    <div class="ltable"><table id="lookupTable"></table></div>
+    <div class="lookup-note">
+      ※ 表中为定制价。批量价：台下盆每件 −¥80，其他类型每件 −¥100<br>
+      ※ 130cm以上：木架包装/小支架 +¥15，大支架 +¥20<br>
+      ※ 自带盆 −¥20 · 品牌板材 1.2米内 +¥40 / 1.2米以上 +¥60
+    </div>
+  </details>
+
+  <footer>欣派岩板 · 品质定制</footer>
+</div>
+
+<!-- 底部固定栏 -->
+<div class="dock">
+  <div class="dock-in">
+    <div class="dock-total">
+      <div class="cap">合计金额</div>
+      <div class="num"><i>¥</i><span id="dockNum">0</span></div>
+    </div>
+    <button class="btn-copy" id="btnCopy">复制报价</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">报价已复制，去微信粘贴吧</div>
+
+<script>
+/* ================= 数据（源自 欣派岩板定制报价表2025） ================= */
+const RANGE_LABELS = ["51-60","61-70","71-80","81-90","91-100","101-110","111-120","121-130","131-140","141-150","151-160","161-170","171-180","181-190","191-200"];
+
+const TYPES = {
+  yiti: {
+    name:"定制一体盆", sub:"台面盆胆一体成型",
+    prices:[430,430,430,450,470,490,510,530,590,630,660,700,720,750,800],
+    addons:[
+      {id:"sp", label:"双盆", delta:150},
+      {id:"yc", label:"隐藏下水", delta:100},
+    ],
+    hasBasin:true
+  },
+  wufeng: {
+    name:"下挂无缝盆", sub:"无缝拼接工艺",
+    prices:[320,320,320,340,350,370,380,430,450,470,490,510,530,550,600],
+    addons:[
+      {id:"sp", label:"双盆", delta:150},
+      {id:"db", label:"单板", delta:-50},
+      {id:"p22", label:"22寸平底盆", delta:10},
+      {id:"k24", label:"24寸科勒盆", delta:20},
+      {id:"p24", label:"24寸平底盆", delta:30},
+    ],
+    hasBasin:true
+  },
+  taixia: {
+    name:"下挂台下盆（20cm内）", sub:"台下工艺 · 简约收口",
+    prices:[230,230,230,240,250,270,280,330,350,370,390,410,430,450,500],
+    addons:[
+      {id:"sp", label:"双盆", delta:50},
+      {id:"p22", label:"22寸平底盆", delta:10},
+      {id:"k24", label:"24寸科勒盆", delta:20},
+      {id:"p24", label:"24寸平底盆", delta:30},
+    ],
+    hasBasin:true
+  },
+  xiaceng: {
+    name:"定制下层", sub:"底部置物层板",
+    prices:[150,150,150,170,180,210,210,240,260,280,300,320,350,380,420],
+    addons:[], hasBasin:false
+  },
+  danban: {
+    name:"定制单板", sub:"纯台面单板",
+    prices:[140,140,140,160,170,180,190,220,230,250,270,300,340,370,400],
+    addons:[
+      {id:"sp", label:"双盆", delta:50},
+      {id:"p22", label:"22寸平底盆", delta:10},
+      {id:"k24", label:"24寸科勒盆", delta:20},
+      {id:"p24", label:"24寸平底盆", delta:30},
+    ],
+    hasBasin:false
+  },
+};
+const TYPE_ORDER = ["yiti","wufeng","taixia","xiaceng","danban"];
+
+/* ================= 状态 ================= */
+const state = {
+  mode:"custom",      // custom 定制 | batch 批量
+  type:"yiti",
+  len:90,
+  qty:10,
+  addons:new Set(),
+  support:"none",     // none | small(+15) | big(+20)
+  ownBasin:false,     // 自带盆 -20
+  brandBoard:false,   // 品牌板材 +40 / +60
+};
+
+/* ================= 工具 ================= */
+const $ = s => document.querySelector(s);
+const fmt = n => (n<0?"-¥":"¥") + Math.abs(n);
+const bucket = len => Math.min(14, Math.max(0, Math.floor((len-51)/10)));
+
+/* ================= 渲染：模式 ================= */
+function renderMode(){
+  document.querySelectorAll(".mode-tab").forEach(el=>{
+    el.classList.toggle("on", el.dataset.mode===state.mode);
+  });
+  $("#qtyArea").style.display = state.mode==="batch" ? "block" : "none";
+  const qi = $("#qtyNum");
+  if(document.activeElement !== qi && qi.value !== String(state.qty)) qi.value = state.qty;
+  document.querySelectorAll("#qtyQuick span").forEach(el=>{
+    el.classList.toggle("on", +el.dataset.q===state.qty);
+  });
+}
+
+/* ================= 渲染：类型 ================= */
+function renderTypes(){
+  const g = $("#typeGrid");
+  g.innerHTML = "";
+  TYPE_ORDER.forEach(key=>{
+    const t = TYPES[key];
+    const min = Math.min(...t.prices), max = Math.max(...t.prices);
+    const el = document.createElement("div");
+    el.className = "type-card" + (state.type===key?" on":"");
+    el.innerHTML = `
+      <div class="t-name">${t.name}</div>
+      <div class="t-sub">${t.sub}</div>
+      <div class="t-price"><b>¥${min}</b> – ¥${max}</div>
+      <div class="off-tag">批量每件 −¥${key==="taixia"?80:100}</div>
+    `;
+    el.onclick = ()=>{
+      state.type = key;
+      state.addons.clear();
+      if(!TYPES[key].hasBasin) state.ownBasin = false;
+      renderAll();
+    };
+    g.appendChild(el);
+  });
+}
+
+/* ================= 渲染：尺寸 ================= */
+function renderSize(){
+  const len = state.len;
+  const idx = bucket(len);
+  $("#lenNum").textContent = len;
+  $("#rangeBadge").textContent = RANGE_LABELS[idx] + "cm 档";
+  const s = $("#lenSlider");
+  s.value = len;
+  s.style.setProperty("--pct", ((len-51)/(200-51)*100)+"%");
+  $("#basePrice").textContent = "¥" + TYPES[state.type].prices[idx];
+}
+
+/* ================= 渲染：附加项 ================= */
+function renderAddons(){
+  const t = TYPES[state.type];
+  const box = $("#addonChips");
+  box.innerHTML = "";
+  if(t.addons.length===0){
+    box.innerHTML = `<div class="empty-note">该类型无附加项目</div>`;
+  }
+  t.addons.forEach(a=>{
+    const c = document.createElement("div");
+    c.className = "chip" + (state.addons.has(a.id)?" on":"");
+    c.innerHTML = `<span>${a.label}</span><span class="d ${a.delta>=0?"plus":"minus"}">${a.delta>=0?"+":""}${a.delta}</span>`;
+    c.onclick = ()=>{
+      state.addons.has(a.id) ? state.addons.delete(a.id) : state.addons.add(a.id);
+      renderAll();
+    };
+    box.appendChild(c);
+  });
+}
+
+/* ================= 渲染：通用选项 ================= */
+function renderCommon(){
+  const box = $("#commonChips");
+  box.innerHTML = "";
+  const t = TYPES[state.type];
+  const items = [];
+
+  // 支架（130cm以上）
+  if(state.len > 130){
+    items.push({id:"sup_small", label:"木架/小支架", delta:15, group:"support", val:"small", on:state.support==="small"});
+    items.push({id:"sup_big",   label:"大支架",     delta:20, group:"support", val:"big",   on:state.support==="big"});
+  }
+  // 自带盆
+  if(t.hasBasin){
+    items.push({id:"own", label:"自带盆", delta:-20, on:state.ownBasin,
+      toggle:()=>state.ownBasin=!state.ownBasin});
+  }
+  // 品牌板材
+  const boardFee = state.len<=120 ? 40 : 60;
+  items.push({id:"brand", label:`品牌板材（${state.len<=120?"1.2米内":"1.2米以上"}）`, delta:boardFee, on:state.brandBoard,
+    toggle:()=>state.brandBoard=!state.brandBoard});
+
+  if(state.len<=130){
+    const tip = document.createElement("div");
+    tip.className = "empty-note";
+    tip.textContent = "长度超 130cm 可选木架包装/支架";
+    box.appendChild(tip);
+  }
+  items.forEach(it=>{
+    const c = document.createElement("div");
+    c.className = "chip" + (it.on?" on":"");
+    c.innerHTML = `<span>${it.label}</span><span class="d ${it.delta>=0?"plus":"minus"}">${it.delta>=0?"+":""}${it.delta}</span>`;
+    c.onclick = ()=>{
+      if(it.group==="support") state.support = it.on ? "none" : it.val;
+      else it.toggle();
+      renderAll();
+    };
+    box.appendChild(c);
+  });
+}
+
+/* ================= 计算与明细 ================= */
+function calc(){
+  const t = TYPES[state.type];
+  const idx = bucket(state.len);
+  const rows = [];
+  let unit = 0;
+
+  const base = t.prices[idx];
+  rows.push({label:`${t.name} · ${RANGE_LABELS[idx]}cm`, amt:base});
+  unit += base;
+
+  t.addons.forEach(a=>{
+    if(state.addons.has(a.id)){ rows.push({label:"＋ " + a.label, amt:a.delta}); unit+=a.delta; }
+  });
+
+  if(state.len>130 && state.support==="small"){ rows.push({label:"＋ 木架包装/小支架", amt:15}); unit+=15; }
+  if(state.len>130 && state.support==="big"){ rows.push({label:"＋ 大支架", amt:20}); unit+=20; }
+  if(t.hasBasin && state.ownBasin){ rows.push({label:"− 自带盆", amt:-20}); unit-=20; }
+  if(state.brandBoard){
+    const fee = state.len<=120?40:60;
+    rows.push({label:"＋ 品牌板材", amt:fee}); unit+=fee;
+  }
+  if(state.mode==="batch"){
+    const off = state.type==="taixia" ? 80 : 100;
+    rows.push({label:"− 批量优惠（每件）", amt:-off});
+    unit -= off;
+    if(unit<0) unit=0;
+    rows.push({label:"单价小计", amt:unit, strong:true});
+    rows.push({label:"批量数量", text:"× " + state.qty + " 件"});
+    return {rows, unit, total: unit*state.qty};
+  }
+  if(unit<0) unit=0;
+  return {rows, unit, total: unit};
+}
+
+function renderBill(){
+  const {rows,total} = calc();
+  $("#billMeta").textContent = state.mode==="batch" ? `${state.len}cm × ${state.qty}件` : `${state.len}cm`;
+  const box = $("#billRows");
+  box.innerHTML = "";
+  rows.forEach(r=>{
+    const d = document.createElement("div");
+    d.className = "bill-row" + (r.strong?" strong":"");
+    const right = r.text
+      ? `<span class="amt">${r.text}</span>`
+      : `<span class="amt ${r.amt<0?"neg":""}">${r.amt<0?fmt(r.amt):"¥"+r.amt}</span>`;
+    d.innerHTML = `<span class="lb">${r.label}</span>${right}`;
+    box.appendChild(d);
+  });
+  $("#totalNum").textContent = total;
+  $("#dockNum").textContent = total;
+  $(".dock-total .cap").textContent = state.mode==="batch" ? `合计金额 · 共${state.qty}件` : "合计金额";
+}
+
+/* ================= 速查表 ================= */
+function renderLookup(){
+  let html = "<tr><th>尺寸档</th><th>一体盆</th><th>无缝盆</th><th>台下盆(20cm内)</th><th>下层</th><th>单板</th></tr>";
+  RANGE_LABELS.forEach((r,i)=>{
+    html += `<tr><td>${r}</td>` +
+      TYPE_ORDER.map(k=>`<td>${TYPES[k].prices[i]}</td>`).join("") + "</tr>";
+  });
+  $("#lookupTable").innerHTML = html;
+}
+
+/* ================= 总渲染 ================= */
+function renderAll(){
+  renderMode(); renderTypes(); renderSize(); renderAddons(); renderCommon(); renderBill();
+}
+
+/* ================= 交互绑定 ================= */
+document.querySelectorAll(".mode-tab").forEach(el=>{
+  el.onclick = ()=>{ state.mode = el.dataset.mode; renderMode(); renderBill(); };
+});
+$("#qtyMinus").onclick = ()=>{ if(state.qty>1){ state.qty--; renderMode(); renderBill(); } };
+$("#qtyPlus").onclick  = ()=>{ if(state.qty<9999){ state.qty++; renderMode(); renderBill(); } };
+$("#qtyNum").addEventListener("input", e=>{
+  const v = parseInt(e.target.value, 10);
+  if(Number.isNaN(v)) return;              // 清空时先不响应，失焦时兜底
+  state.qty = Math.min(9999, Math.max(1, v));
+  renderBill();
+  document.querySelectorAll("#qtyQuick span").forEach(el=>{
+    el.classList.toggle("on", +el.dataset.q===state.qty);
+  });
+});
+$("#qtyNum").addEventListener("blur", e=>{
+  const v = parseInt(e.target.value, 10);
+  state.qty = Number.isNaN(v) ? 1 : Math.min(9999, Math.max(1, v));
+  renderMode(); renderBill();
+});
+document.querySelectorAll("#qtyQuick span").forEach(el=>{
+  el.onclick = ()=>{ state.qty = +el.dataset.q; renderMode(); renderBill(); };
+});
+$("#lenSlider").addEventListener("input", e=>{
+  state.len = +e.target.value;
+  if(state.len<=130) state.support = "none";
+  renderSize(); renderCommon(); renderBill();
+});
+$("#btnMinus").onclick = ()=>{ if(state.len>51){state.len--; if(state.len<=130)state.support="none"; renderSize();renderCommon();renderBill();} };
+$("#btnPlus").onclick  = ()=>{ if(state.len<200){state.len++; renderSize();renderCommon();renderBill();} };
+
+/* 复制报价 */
+$("#btnCopy").onclick = ()=>{
+  const {rows,unit,total} = calc();
+  const t = TYPES[state.type];
+  const batch = state.mode==="batch";
+  let text = `【欣派岩板 · ${batch?"批量":"定制"}报价】\n`;
+  text += `类型：${t.name}\n尺寸：${state.len}cm（${RANGE_LABELS[bucket(state.len)]}cm档）\n`;
+  if(batch) text += `数量：${state.qty} 件\n`;
+  text += `——————————\n`;
+  rows.forEach((r,i)=>{
+    if(i===0 || r.text) return;
+    if(r.strong){ text += `单价小计：¥${r.amt}\n`; return; }
+    text += `${r.label.replace(/^[＋−]\s*/,"")} ${r.amt>=0?"+":"-"}¥${Math.abs(r.amt)}\n`;
+  });
+  text += `——————————\n合计：¥${total}${batch?`（${state.qty}件 × 单价¥${unit}）`:""}`;
+  const done = ()=>{
+    const t = $("#toast");
+    t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"), 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text,done));
+  }else fallbackCopy(text,done);
+};
+function fallbackCopy(text,cb){
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta); cb();
+}
+
+/* ================= 启动 ================= */
+renderLookup();
+renderAll();
+</script>
+</body>
+</html>
